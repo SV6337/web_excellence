@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechPulse | Innovation & Startup News</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            padding-left: 2.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .search-container i {
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            color: var(--gray);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .news-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .news-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .news-content {
+            padding: 1.5rem;
+        }
+        
+        .news-category {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .news-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+        
+        .news-excerpt {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .read-more {
+            display: inline-block;
+            color: var(--secondary);
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 1rem;
+        }
+        
+        .trending {
+            background-color: var(--light);
+            padding: 3rem 0;
+        }
+        
+        .trending-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .trending-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .trending-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .trending-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .trending-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .newsletter {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .newsletter p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-form button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-form button:hover {
+            background-color: #c0392b;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo span {
+            color: var(--secondary);
+        }
+        
+        .footer-about p {
+            margin-bottom: 1rem;
+            color: #bdc3c7;
+        }
+        
+        .footer-links h3, .footer-contact h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .footer-links h3::after, .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .footer-contact p {
+            color: #bdc3c7;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-contact i {
+            margin-right: 0.5rem;
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* Loading state */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--secondary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+            }
+            
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                border-radius: 4px;
+                margin-bottom: 0.5rem;
+            }
+            
+            .newsletter-form button {
+                border-radius: 4px;
+                padding: 1rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">Tech<span>Pulse</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="login.html">questionaire</a></li>
+                    <li><a href="index3.html">tech innovation explore</a></li>
+                    
+                    <li><a href="index2.html">AI</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <h1>Stay Ahead with the Latest in Tech Innovation</h1>
+        <p>Discover groundbreaking startups, cutting-edge technologies, and the visionaries shaping our digital future</p>
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search for tech news, startups, innovations...">
+        </div>
+    </section>
+    
+    <div class="container">
+        <h2 class="section-title">Latest Tech News</h2>
+        <div class="news-grid" id="newsContainer">
+            <!-- News cards will be inserted here by JavaScript -->
+            <div class="loading">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </div>
+    
+    <section class="trending">
+        <div class="trending-container">
+            <h2 class="section-title">Trending in Startups</h2>
+            <div class="trending-grid" id="trendingContainer">
+                <!-- Trending cards will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </section>
+    
+    <div class="container">
+        <h2 class="section-title">AI & Emerging Tech</h2>
+        <div class="news-grid" id="aiContainer">
+            <!-- AI news cards will be inserted here by JavaScript -->
+        </div>
+    </div>
+    
+   
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="footer-logo">Tech<span>Pulse</span></div>
+                <p>Your premier source for technology innovation and startup news from around the globe.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+           
+        <div class="copyright">
+            <p>&copy; 2023 TechPulse. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample news data (in a real app, you would fetch this from an API)
+        const techNews = [
+            {
+                title: "OpenAI Unveils GPT-5 With Revolutionary Capabilities",
+                excerpt: "The latest iteration of the AI model shows unprecedented understanding and creativity in problem-solving.",
+                category: "AI",
+                date: "2023-11-15",
+                image: "https://source.unsplash.com/random/600x400/?ai,technology",
+                url: "#"
+            },
+            {
+                title: "Quantum Startup Raises $200M to Build Commercial Quantum Computer",
+                excerpt: "The funding round was led by prominent VC firms betting on quantum supremacy.",
+                category: "Quantum",
+                date: "2023-11-14",
+                image: "https://source.unsplash.com/random/600x400/?quantum,computer",
+                url: "#"
+            },
+            {
+                title: "Elon Musk's Neuralink Gets FDA Approval for Human Trials",
+                excerpt: "The brain-chip startup can now begin testing its technology on human subjects.",
+                category: "Biotech",
+                date: "2023-11-13",
+                image: "https://source.unsplash.com/random/600x400/?neuralink,brain",
+                url: "#"
+            },
+            {
+                title: "European Fintech Revolut Hits $33B Valuation in Latest Funding",
+                excerpt: "The digital banking platform continues its rapid expansion across global markets.",
+                category: "Fintech",
+                date: "2023-11-12",
+                image: "https://source.unsplash.com/random/600x400/?fintech,banking",
+                url: "#"
+            },
+            {
+                title: "Apple's AR Glasses Set to Launch in Early 2024",
+                excerpt: "Industry insiders reveal the highly anticipated wearable will redefine augmented reality.",
+                category: "AR/VR",
+                date: "2023-11-11",
+                image: "https://source.unsplash.com/random/600x400/?ar,glasses",
+                url: "#"
+            },
+            {
+                title: "Climate Tech Startup Develops Carbon Capture Breakthrough",
+                excerpt: "The new technology promises to remove CO2 from the atmosphere at industrial scale.",
+                category: "Climate Tech",
+                date: "2023-11-10",
+                image: "https://source.unsplash.com/random/600x400/?climate,technology",
+                url: "#"
+            }
+        ];
+
+        const trendingStartups = [
+            { title: "Anthropic's Claude AI Challenges ChatGPT Dominance", rank: 1 },
+            { title: "SpaceX Spin-off Announces Lunar Mining Operations", rank: 2 },
+            { title: "Web3 Platform Raises $50M for Decentralized Social Network", rank: 3 },
+            { title: "Biotech Firm Discovers Anti-Aging Compound", rank: 4 },
+            { title: "Robotics Startup Automates Fast Food Industry", rank: 5 }
+        ];
+
+        const aiNews = [
+            {
+                title: "Google DeepMind's New Model Solves Complex Math Problems",
+                excerpt: "The AI system demonstrates advanced reasoning capabilities previously thought impossible.",
+                category: "AI Research",
+                date: "2023-11-14",
+                image: "https://source.unsplash.com/random/600x400/?deepmind,math",
+                url: "#"
+            },
+            {
+                title: "Microsoft Integrates AI Copilot Across All Products",
+                excerpt: "The AI assistant will now be available in Windows, Office, and Azure services.",
+                category: "AI Products",
+                date: "2023-11-13",
+                image: "https://source.unsplash.com/random/600x400/?microsoft,ai",
+                url: "#"
+            },
+            {
+                title: "Ethicists Warn of Unchecked AI Development Pace",
+                excerpt: "Experts call for more regulation as AI capabilities advance rapidly.",
+                category: "AI Ethics",
+                date: "2023-11-12",
+                image: "https://source.unsplash.com/random/600x400/?ethics,technology",
+                url: "#"
+            }
+        ];
+
+        // Function to format date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+
+        // Function to render news cards
+        function renderNews(newsArray, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            newsArray.forEach(news => {
+                const card = document.createElement('div');
+                card.className = 'news-card';
+                card.innerHTML = `
+                    <img src="${news.image}" alt="${news.title}">
+                    <div class="news-content">
+                        <span class="news-category">${news.category}</span>
+                        <h3 class="news-title">${news.title}</h3>
+                        <p class="news-excerpt">${news.excerpt}</p>
+                        <div class="news-meta">
+                            <span>${formatDate(news.date)}</span>
+                            <span>5 min read</span>
+                        </div>
+                        <a href="${news.url}" class="read-more">Read More →</a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Function to render trending cards
+        function renderTrending(trendingArray, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            trendingArray.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'trending-card';
+                card.innerHTML = `
+                    <div class="trending-number">${item.rank}</div>
+                    <h3 class="trending-title">${item.title}</h3>
+                    <a href="#" class="read-more">Read Story →</a>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate API loading delay
+            setTimeout(() => {
+                renderNews(techNews, 'newsContainer');
+                renderTrending(trendingStartups, 'trendingContainer');
+                renderNews(aiNews, 'aiContainer');
+            }, 1000);
+            
+            // Newsletter form submission
+            document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input').value;
+                alert(`Thank you for subscribing with ${email}! You'll receive our next newsletter.`);
+                this.querySelector('input').value = '';
+            });
+        });
+
+        // In a real implementation, you would fetch from an API like this:
+        /*
+        async function fetchTechNews() {
+            try {
+                const response = await fetch('https://tech-news-api.com/latest');
+                const data = await response.json();
+                renderNews(data.articles, 'newsContainer');
+            } catch (error) {
+                console.error('Error fetching news:', error);
+                // Show error message to user
+            }
+        }
+        */
+    </script>
+</body>
+</html>

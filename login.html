@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>🔥 Tech Quiz Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      color: #fff;
+      padding: 20px;
+      margin: 0;
+    }
+    .quiz-box {
+      background: #fff;
+      color: #333;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: 50px auto;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .quiz-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .question h3 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+    label {
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 5px;
+    }
+    button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: background 0.3s;
+      display: block;
+      margin: 20px auto 0;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    #result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="quiz-box">
+  <h2>🧠 Tech Quiz</h2>
+  <form id="quizForm">
+    <!-- Questions will be inserted here -->
+  </form>
+  <button onclick="submitQuiz()">Submit Quiz</button>
+  <div id="result"></div>
+</div>
+
+<script>
+const questions = [
+  { question: "Which company launched GPT-4 Turbo in 2023?", options: ["OpenAI", "Google", "Meta", "Microsoft"], answer: "OpenAI" },
+  { question: "What is the name of Apple's first mixed reality headset?", options: ["Vision Pro", "Apple XR", "iVision", "AR Pro"], answer: "Vision Pro" },
+  { question: "Which Indian AI startup raised $50M in 2024?", options: ["Sarvam AI", "Zoho AI", "Karya", "AIndra"], answer: "Sarvam AI" },
+  { question: "Which company developed Gemini AI?", options: ["Google DeepMind", "Meta", "OpenAI", "Anthropic"], answer: "Google DeepMind" },
+  { question: "Which chip powers the MacBook Pro (2024)?", options: ["M3", "M2 Pro", "M1 Max", "M3 Ultra"], answer: "M3" },
+  { question: "What is the full form of LLM in AI?", options: ["Large Language Model", "Light Learning Model", "Language Logic Model", "Linguistic Learning Mechanism"], answer: "Large Language Model" },
+  { question: "Which company acquired Figma in 2022?", options: ["Adobe", "Canva", "Apple", "Microsoft"], answer: "Adobe" },
+  { question: "What framework does Next.js build upon?", options: ["React", "Vue", "Angular", "Svelte"], answer: "React" },
+  { question: "What does CDN stand for?", options: ["Content Delivery Network", "Cloud Data Node", "Central Domain Network", "Cache Distribution Network"], answer: "Content Delivery Network" },
+  { question: "Which company makes the Tensor Processing Unit (TPU)?", options: ["Google", "NVIDIA", "Intel", "AMD"], answer: "Google" },
+
+  { question: "What programming language is used for Smart Contracts in Ethereum?", options: ["Solidity", "Rust", "Python", "Go"], answer: "Solidity" },
+  { question: "Which Indian state launched a blockchain land registry?", options: ["Telangana", "Kerala", "Punjab", "Gujarat"], answer: "Telangana" },
+  { question: "What year did ChatGPT first launch publicly?", options: ["2022", "2020", "2023", "2019"], answer: "2022" },
+  { question: "Which AI model is developed by Anthropic?", options: ["Claude", "Gemini", "LLaMA", "PaLM"], answer: "Claude" },
+  { question: "Which browser focuses on privacy and blocks ads by default?", options: ["Brave", "Opera", "Chrome", "Edge"], answer: "Brave" },
+  { question: "Which tool is used to version control code?", options: ["Git", "Jira", "Jenkins", "Docker"], answer: "Git" },
+  { question: "Which platform owns GitHub?", options: ["Microsoft", "Amazon", "Meta", "Google"], answer: "Microsoft" },
+  { question: "Which Indian startup runs the platform ‘Koo’?", options: ["Bombinate", "Mohalla Tech", "Koo India Pvt Ltd", "Entrackr"], answer: "Bombinate" },
+  { question: "What is the max token limit of GPT-4 Turbo?", options: ["128K", "32K", "65K", "256K"], answer: "128K" },
+  { question: "Which service does AWS Lambda provide?", options: ["Serverless Compute", "Object Storage", "Database", "Load Balancing"], answer: "Serverless Compute" },
+
+  { question: "What protocol secures websites via HTTPS?", options: ["TLS", "FTP", "UDP", "SSH"], answer: "TLS" },
+  { question: "Which cloud provider offers BigQuery?", options: ["Google Cloud", "Azure", "AWS", "Oracle"], answer: "Google Cloud" },
+  { question: "What does REST stand for?", options: ["Representational State Transfer", "Remote Server Tunnel", "Rapid Secure Transfer", "Runtime Event State"], answer: "Representational State Transfer" },
+  { question: "Which company created the Rust programming language?", options: ["Mozilla", "Oracle", "IBM", "Google"], answer: "Mozilla" },
+  { question: "What does API stand for?", options: ["Application Programming Interface", "Automated Program Integration", "Applied Programming Internet", "Advanced Protocol Interface"], answer: "Application Programming Interface" },
+  { question: "Which AI model is known for image generation?", options: ["DALL·E", "Codex", "ChatGPT", "Gemini"], answer: "DALL·E" },
+  { question: "What tool is commonly used for container orchestration?", options: ["Kubernetes", "Docker Compose", "Podman", "Chef"], answer: "Kubernetes" },
+  { question: "What does VPN stand for?", options: ["Virtual Private Network", "Verified Protocol Network", "Virtual Public Node", "VoIP Protocol Network"], answer: "Virtual Private Network" },
+  { question: "Which language is the TensorFlow library written in?", options: ["Python", "Java", "C++", "Go"], answer: "Python" },
+  { question: "Which social app was acquired by Elon Musk?", options: ["Twitter", "Clubhouse", "Reddit", "Instagram"], answer: "Twitter" },
+
+  { question: "Which chip does the Google Pixel 8 use?", options: ["Tensor G3", "Snapdragon 8 Gen 2", "Exynos", "Apple A17"], answer: "Tensor G3" },
+  { question: "Which app was banned in India in 2020?", options: ["TikTok", "Snapchat", "Telegram", "Reddit"], answer: "TikTok" },
+  { question: "Which cloud platform offers CloudFormation?", options: ["AWS", "Azure", "GCP", "IBM Cloud"], answer: "AWS" },
+  { question: "What company owns LinkedIn?", options: ["Microsoft", "Meta", "Google", "Adobe"], answer: "Microsoft" },
+  { question: "Which country leads in semiconductor production?", options: ["Taiwan", "USA", "China", "Japan"], answer: "Taiwan" },
+  { question: "What does HTML stand for?", options: ["HyperText Markup Language", "Hyper Transfer Machine Language", "HighText Machine Language", "Hyper Text Markdown Language"], answer: "HyperText Markup Language" },
+  { question: "What is the name of Microsoft’s AI assistant in Windows 11?", options: ["Copilot", "Clippy", "EdgeGPT", "Synthia"], answer: "Copilot" },
+  { question: "What tech conference did Sundar Pichai present Gemini AI at?", options: ["Google I/O 2023", "Google Cloud Next", "AI Dev Day", "TensorCon"], answer: "Google I/O 2023" },
+  { question: "Which tool helps visualize Git branches?", options: ["GitKraken", "Figma", "Xcode", "VS Code"], answer: "GitKraken" },
+  { question: "Which city is known as India’s Silicon Valley?", options: ["Bangalore", "Mumbai", "Hyderabad", "Chennai"], answer: "Bangalore" },
+
+  { question: "Which protocol is used for secure email transfer?", options: ["SMTP with TLS", "POP3", "IMAP", "FTP"], answer: "SMTP with TLS" },
+  { question: "Which Indian company recently launched JioCloud PC?", options: ["Reliance", "TCS", "Infosys", "Tech Mahindra"], answer: "Reliance" },
+  { question: "What is the core backend language of WhatsApp?", options: ["Erlang", "Python", "Java", "Node.js"], answer: "Erlang" },
+  { question: "Which company owns Android OS?", options: ["Google", "Samsung", "Meta", "Oracle"], answer: "Google" },
+  { question: "Which database is a NoSQL type?", options: ["MongoDB", "MySQL", "PostgreSQL", "SQLite"], answer: "MongoDB" },
+  { question: "Which Indian app is an alternative to Google Maps?", options: ["MapMyIndia", "GoMap", "NavIC", "IndMap"], answer: "MapMyIndia" },
+  { question: "Which IDE is developed by JetBrains?", options: ["PyCharm", "VS Code", "Xcode", "NetBeans"], answer: "PyCharm" },
+  { question: "What does DNS stand for?", options: ["Domain Name System", "Data Network Switch", "Digital Naming Service", "Domain Node Server"], answer: "Domain Name System" },
+  { question: "Which cloud provider offers Azure OpenAI services?", options: ["Microsoft Azure", "AWS", "Oracle", "IBM"], answer: "Microsoft Azure" },
+  { question: "Which OS does Raspberry Pi use?", options: ["Raspberry Pi OS", "Ubuntu", "Debian", "Arch"], answer: "Raspberry Pi OS" }
+];
+
+let selectedQuestions = [];
+while (selectedQuestions.length < 5) {
+  let r = Math.floor(Math.random() * questions.length);
+  if (!selectedQuestions.includes(r)) selectedQuestions.push(r);
+}
+
+const form = document.getElementById("quizForm");
+selectedQuestions.forEach((index, i) => {
+  const q = questions[index];
+  const div = document.createElement("div");
+  div.classList.add("question");
+  div.innerHTML = `<h3>Q${i+1}: ${q.question}</h3>`;
+  q.options.forEach((opt, j) => {
+    div.innerHTML += `
+      <label><input type="radio" name="q${i}" value="${opt}" required> ${opt}</label>`;
+  });
+  form.appendChild(div);
+});
+
+function submitQuiz() {
+  let score = 0;
+  selectedQuestions.forEach((index, i) => {
+    const correctAnswer = questions[index].answer;
+    const userAnswer = form[`q${i}`].value;
+    if (userAnswer === correctAnswer) score++;
+  });
+
+  const resultDiv = document.getElementById("result");
+  resultDiv.innerText = `You scored ${score}/5! 🎉`;
+
+  // Redirect to index.html after 10 seconds
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 10000);
+}
+</script>
+
+</body>
+</html>
